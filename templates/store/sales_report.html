@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% block title %}گزارش فروش | نشر احسان کابل{% endblock %}{% block content %}
+<div class="page-heading"><div><span class="eyebrow">ویژه مدیران فروشگاه</span><h1>گزارش فروش</h1><p>گزارش‌ها بر اساس سفارش‌های ثبت‌شده محاسبه می‌شوند؛ سفارش‌های لغوشده در جمع فروش حساب نشده‌اند.</p></div><a class="btn btn-outline" href="{% url 'admin:index' %}">پنل مدیریت</a></div>
+<div class="report-grid">
+<section class="report-card"><span>فروش امروز · {{ today|date:"Y/m/d" }}</span><strong>{{ daily.total|default:0|floatformat:"-2" }} افغانی</strong><small>{{ daily.count|default:0 }} سفارش</small></section>
+<section class="report-card"><span>فروش این ماه</span><strong>{{ monthly.total|default:0|floatformat:"-2" }} افغانی</strong><small>{{ monthly.count|default:0 }} سفارش</small></section>
+<section class="report-card"><span>فروش امسال</span><strong>{{ yearly.total|default:0|floatformat:"-2" }} افغانی</strong><small>{{ yearly.count|default:0 }} سفارش</small></section>
+</div>
+<section class="section"><h2>کتاب‌های پرفروش</h2><div class="table-wrap"><table><thead><tr><th>نام کتاب</th><th>تعداد فروخته‌شده</th><th>درآمد مجموعی</th></tr></thead><tbody>{% for book in bestsellers %}<tr><td>{{ book.title }}</td><td>{{ book.quantity_sold }}</td><td>{{ book.revenue|floatformat:"-2" }} افغانی</td></tr>{% empty %}<tr><td colspan="3">هنوز فروش تأییدشده‌ای ثبت نشده است.</td></tr>{% endfor %}</tbody></table></div></section>
+<section class="section"><h2>آخرین سفارش‌ها</h2><div class="table-wrap"><table><thead><tr><th>شماره</th><th>مشتری</th><th>شماره تماس</th><th>مجموع</th><th>وضعیت</th><th>تاریخ</th></tr></thead><tbody>{% for order in recent_orders %}<tr><td>#{{ order.id }}</td><td>{{ order.full_name }}</td><td>{{ order.phone }}</td><td>{{ order.total|floatformat:"-2" }} افغانی</td><td>{{ order.get_status_display }}</td><td>{{ order.created_at|date:"Y/m/d H:i" }}</td></tr>{% empty %}<tr><td colspan="6">هنوز سفارشی ثبت نشده است.</td></tr>{% endfor %}</tbody></table></div></section>
+{% endblock %}

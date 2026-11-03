@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: nashr-ehsan-shop
+    runtime: python
+    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate
+    startCommand: gunicorn config.wsgi:application
+    envVars:
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: DJANGO_DEBUG
+        value: "False"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: nashr-ehsan-db
+          property: connectionString
+      - key: WHATSAPP_NUMBER
+        value: ""
+databases:
+  - name: nashr-ehsan-db
+    databaseName: nashr_ehsan
+    user: nashr_ehsan_user

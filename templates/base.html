@@ -1,0 +1,29 @@
+{% load static %}
+<!doctype html>
+<html lang="fa-AF" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="کتاب‌فروشی احسان کابل؛ جست‌وجو، بررسی قیمت و ثبت درخواست سفارش کتاب از سراسر جهان.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="website"><meta property="og:site_name" content="کتاب احسان کابل"><meta property="og:title" content="{% block og_title %}کتاب احسان کابل | کتاب‌فروشی آنلاین{% endblock %}"><meta property="og:description" content="{% block og_description %}کتاب‌فروشی احسان کابل؛ ثبت درخواست سفارش کتاب از سراسر جهان.{% endblock %}">
+<link rel="canonical" href="{{ request.build_absolute_uri }}">
+<link rel="sitemap" type="application/xml" href="{% url 'sitemap_xml' %}">
+<title>{% block title %}کتاب احسان کابل | کتاب‌فروشی آنلاین{% endblock %}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/site.css' %}">
+</head>
+<body>
+<div class="topline"><span>ارسال به سراسر جهان</span><span>خوش آمدید به کتاب احسان کابل</span><span><a href="{% url 'faq' %}">سوالات متداول</a>　 |　 <a href="{% url 'contact' %}">تماس با ما</a></span></div>
+<header class="site-header"><div class="container header-main">
+<div class="header-actions"><a href="{% url 'cart' %}" class="header-action"><span class="action-icon">🛒</span><small>سبد خرید <b>{{ cart_count }}</b></small></a>{% if user.is_authenticated %}<a href="{% url 'account' %}" class="header-action"><span class="action-icon">♙</span><small>حساب کاربری</small></a>{% else %}<a href="{% url 'login' %}" class="header-action"><span class="action-icon">♙</span><small>حساب کاربری</small></a>{% endif %}<a href="https://wa.me/93700018312" class="header-action" target="_blank" rel="noopener"><span class="action-icon">☏</span><small>واتساپ</small></a></div>
+<form class="header-search" action="{% url 'book_list' %}" method="get"><input name="q" placeholder="جستجو در کتاب‌ها، نویسندگان و موضوعات..." aria-label="جستجوی کتاب"><button aria-label="جستجو">⌕</button></form>
+<a class="brand" href="{% url 'home' %}"><span><b>کتاب احسان - کابل</b><small>کتاب‌های ارزشمند، اندیشه‌های ماندگار</small></span><img class="brand-logo" src="{% static 'images/logo.png' %}" alt="لوگوی کتاب احسان کابل"></a>
+</div><div class="nav-band"><button class="menu-toggle" type="button" aria-label="نمایش منو" onclick="document.querySelector('.nav-band .nav-links').classList.toggle('open')">☰ فهرست</button><nav class="container nav-links"><a href="{% url 'home' %}">صفحه اصلی</a><a href="{% url 'book_list' %}">کتاب‌ها</a><a href="{% url 'book_list' %}">دسته‌بندی‌ها</a><a href="{% url 'book_list' %}">نویسندگان</a><a href="{% url 'book_list' %}">تخفیف‌ها</a><a href="{% url 'shipping_policy' %}">روش ارسال</a><a href="{% url 'account' %}">پیگیری سفارش</a><a href="{% url 'about' %}">درباره ما</a><a href="{% url 'contact' %}">بلاگ / تماس</a></nav></div></header>
+<main class="container main">
+{% if messages %}<div class="messages">{% for message in messages %}<div class="message {{ message.tags }}">{{ message }}</div>{% endfor %}</div>{% endif %}
+{% block content %}{% endblock %}
+</main>
+<footer class="footer"><div class="container footer-grid"><div><a class="brand footer-brand" href="{% url 'home' %}"><img class="brand-logo footer-logo" src="{% static 'images/logo.png' %}" alt="لوگوی کتاب احسان کابل"><span><b>کتاب احسان کابل</b><small>همراه شما در مسیر دانایی</small></span></a><p>کتاب‌فروشی احسان کابل؛ ثبت درخواست سفارش از سراسر جهان.</p><div class="footer-contact"><p><strong>نشانی:</strong> جاده آسمایی، آسمایی پلازا، منزل تحتانی، کابل، افغانستان</p><p><strong>تلفن:</strong> <a href="tel:+93700018312" dir="ltr">+93 70 001 8312</a></p><p><a class="btn btn-light" href="https://wa.me/93700018312" target="_blank" rel="noopener">تماس در واتساپ</a></p></div></div><div><h3>دسترسی سریع</h3><a href="{% url 'book_list' %}">فهرست کتاب‌ها</a><a href="{% url 'about' %}">درباره ما</a><a href="{% url 'contact' %}">تماس با ما</a><a href="{% url 'faq' %}">پرسش‌های متداول</a><a href="{% url 'shipping_policy' %}">روش سفارش و ارسال</a><a href="{% url 'privacy_policy' %}">حریم خصوصی</a><a href="{% url 'cart' %}">سبد خرید</a><a href="{% url 'account' %}">سفارش‌های من</a></div><div><h3>خدمات مشتریان</h3><a href="{% url 'faq' %}">راهنمای خرید</a><a href="{% url 'shipping_policy' %}">ارسال و لغو سفارش</a><a href="{% url 'privacy_policy' %}">حریم خصوصی</a><a href="{% url 'contact' %}">ارسال پیام به ما</a><form class="newsletter-form" method="post" action="{% url 'newsletter_subscribe' %}">{% csrf_token %}<label for="newsletter-email">عضویت در خبرنامه</label><div><input id="newsletter-email" type="email" name="email" placeholder="ایمیل شما" required><input type="hidden" name="next" value="{{ request.path }}"><button class="btn btn-gold" type="submit">عضویت</button></div></form></div></div><div class="copyright">© کتاب احسان کابل — تمام حقوق محفوظ است.</div></footer>
+<script src="{% static 'js/site.js' %}"></script>
+</body></html>
